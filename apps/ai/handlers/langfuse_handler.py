@@ -1,6 +1,6 @@
 import os
 from langfuse import Langfuse
-from opentelemetry.trace import TracerProvider
+from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry import trace
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
@@ -10,14 +10,17 @@ from typing import Optional
 
 _langfuse_client: Optional[Langfuse] = None
 
+def _get_env(name: str, default: Optional[str] = None) -> Optional[str]:
+    return os.getenv(name, default)
+
 def init_langfuse():
     global _langfuse_client
     if _langfuse_client is not None:
         return _langfuse_client
 
-    pub = os.getenv("LANGFUSE_PUBLIC_KEY")
-    sec = os.getenv("LANGFUSE_SECRET_KEY")
-    host = os.getenv("LANGFUSE_HOST", "https://cloud.langfuse.com")
+    pub = _get_env("LANGFUSE_PUBLIC_KEY")
+    sec = _get_env("LANGFUSE_SECRET_KEY")
+    host = _get_env("LANGFUSE_HOST", "https://cloud.langfuse.com")
     
     if not (pub and sec):
         logger.info("[LANGFUSE] Missing credentials, tracing is disabled.")

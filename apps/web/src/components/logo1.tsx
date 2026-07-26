@@ -7,7 +7,7 @@ export default function Logo1({
     <div className="flex items-center gap-2 text-black dark:text-white">
       {/* Icon */}
       <div className="w-8 h-8">
-        <svg
+        <svg suppressHydrationWarning
           width="100%"
           height="100%"
           viewBox="0 0 64 64"
@@ -60,7 +60,7 @@ export default function Logo1({
       </div>
 
       {/* Text Logo */}
-      <svg
+      <svg suppressHydrationWarning
         viewBox="0 0 900 150"
         className={`${compactOnMobile ? "hidden sm:block" : ""} h-8 w-auto`}
         xmlns="http://www.w3.org/2000/svg"

@@ -3,7 +3,7 @@ import React from 'react';
 // deepgram logo
 export function DeepgramLogo({ className }: { className?: string }) {
   return (
-    <svg version="1.1" id="layer" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
+    <svg suppressHydrationWarning version="1.1" id="layer" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
 	 viewBox="-180 225 660 110" className={className} preserveAspectRatio="xMidYMid meet">
 <style type="text/css" dangerouslySetInnerHTML={{__html: `.st0{fill:#E93D45;}`}} />
 <path className="st0" d="M31.1,274.8H10.7V312h20.4V274.8z M-131.5,274.8h20.4v-37.2h-20.4V274.8z"/>
@@ -69,7 +69,7 @@ export function DeepgramLogo({ className }: { className?: string }) {
 // 11labs logo
 export function ElevenlabsLogo({ className }: { className?: string }) {
     return (
-        <svg viewBox="-100 -20 894 130" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} preserveAspectRatio="xMidYMid meet">
+        <svg suppressHydrationWarning viewBox="-100 -20 894 130" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} preserveAspectRatio="xMidYMid meet">
 <path d="M248.261 22.1901H230.466L251.968 88.5124H271.123L292.625 22.1901H274.83L261.365 72.1488L248.261 22.1901Z" fill="currentColor"/>
 <path d="M0 0H18.413V88.5124H0V0Z" fill="currentColor"/>
 <path d="M36.5788 0H54.9917V88.5124H36.5788V0Z" fill="currentColor"/>
@@ -89,7 +89,7 @@ export function ElevenlabsLogo({ className }: { className?: string }) {
 // Microsoft for startups Logo
 export function MicrosoftForStartups ({ className }: { className?: string }) {
     return (
-        <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+        <svg suppressHydrationWarning version="1.0" xmlns="http://www.w3.org/2000/svg"
  viewBox="200 200 1520 680"
  preserveAspectRatio="xMidYMid meet" className={className}>
 
@@ -240,7 +240,7 @@ c0 -290 -4 -310 -66 -372 -85 -84 -245 -73 -292 22 -36 70 -43 146 -40 385 l3
 
 export function NvidiaInception ({ className }: { className?: string }) {
     return (
-        <svg
+        <svg suppressHydrationWarning
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             width="882"
