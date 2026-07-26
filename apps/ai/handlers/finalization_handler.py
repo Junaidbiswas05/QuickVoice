@@ -50,5 +50,9 @@ class CallFinalizer:
                 payload["evaluatedData"] = []
             if self._config.get("retention_days") is not None:
                 payload["metadata"]["retentionDays"] = self._config.get("retention_days")
+                
+            from handlers.langfuse_handler import attach_langfuse_evaluation
+            attach_langfuse_evaluation(self._call_context, payload)
+            
             await self._post_call_log(payload)
             logger.info("[CALL_LOG] finalized call {}", redact_sensitive({"callId": payload["callId"]}))

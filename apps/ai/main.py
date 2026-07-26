@@ -21,6 +21,7 @@ from handlers.finalization_handler import CallFinalizer
 from handlers.livekit_handler import recording_path as build_recording_path, start_recording
 from handlers.live_transcript_publisher import LiveTranscriptPublisher
 from handlers.http_tool_handler import build_http_tool_instructions, call_http_tool, parse_http_tool_arguments
+from handlers.langfuse_handler import init_langfuse, open_langfuse_trace
 from handlers.mcp_handler import build_mcp_tool_instructions, call_mcp_tool, parse_arguments_json
 from handlers.privacy_handler import should_store_call_audio
 from handlers.rag_handler import RagRetrievalError, get_rag_context
@@ -53,6 +54,8 @@ import time
 
 APP_DIR = Path(__file__).resolve().parent
 load_dotenv(APP_DIR / ".env")
+
+init_langfuse()
 
 API_PORT = int(os.getenv("AI_API_PORT", "5555"))
 DEFAULT_SYSTEM_PROMPT = (
@@ -478,6 +481,8 @@ async def entrypoint(ctx: JobContext):
         config = apply_metadata_overrides(config, metadata)
         config = attach_resolved_voice_config(config)
     logger.info("Config loaded for agent: {}", redact_sensitive(config.get("agent_id")))
+
+    open_langfuse_trace(call_context, config)
 
     try:
         await flush_call_log_queue()
