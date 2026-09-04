@@ -39,7 +39,7 @@ flowchart LR
 The supported one-command development path is a Linux environment with:
 
 - Bash `>=4`
-- Node.js `>=20.9` and Corepack
+- Node.js `^20.19 || ^22.13 || >=24` and Corepack
 - `pnpm@9.0.0` (activated by the setup task)
 - Python 3; Python 3.12 matches CI and the AI runtime image
 - Docker with the Compose v2 plugin
@@ -71,9 +71,9 @@ go install github.com/go-task/task/v3/cmd/task@latest
 export PATH="$PATH:$HOME/go/bin"
 ```
 
-Install Node.js `>=20.9` separately with a version manager or the official Node.js packages; a distribution package may be older than QuickVoice requires. Reconnect the shell after changing Docker group membership. With Docker Desktop on WSL2, enable integration for the WSL distribution instead of installing a second Docker daemon.
+Install Node.js `^20.19 || ^22.13 || >=24` separately with a version manager or the official Node.js packages; a distribution package may be older than QuickVoice requires. Reconnect the shell after changing Docker group membership. With Docker Desktop on WSL2, enable integration for the WSL distribution instead of installing a second Docker daemon.
 
-On macOS, install Docker Desktop, Go Task, Node.js `>=20.9`, Python, and Bash `>=4` using your preferred package manager. Ensure the modern Bash appears before `/bin/bash` on `PATH`, because the scripts use `#!/usr/bin/env bash`.
+On macOS, install Docker Desktop, Go Task, Node.js `^20.19 || ^22.13 || >=24`, Python, and Bash `>=4` using your preferred package manager. Ensure the modern Bash appears before `/bin/bash` on `PATH`, because the scripts use `#!/usr/bin/env bash`.
 
 First things to open:
 
@@ -90,6 +90,8 @@ The task creates local env files from `*.env.dev.example`, activates `pnpm@9.0.0
 The Docker Compose database credentials are dev-only placeholders (`quickvoice` / `quickvoice`) and the Postgres and Redis ports are bound to `127.0.0.1`. Edit the generated env files after the first run if you need real Google, Stripe, LiveKit, Twilio, Telnyx, SMTP, or AWS credentials. Generated env files are ignored by git.
 
 The placeholder values are enough to inspect local startup paths; they do not make provider-backed actions work. A successful `task up:dev` does not prove that live calls, OAuth, billing, email delivery, object storage, Pinecone retrieval, or production deployment are configured. Real phone calls require LiveKit plus a configured telephony provider and model-provider credentials. Keep production data and credentials out of local issue reproductions.
+
+To exercise prepaid billing safely, follow the [Stripe wallet test-mode verification guide](./docs/development/stripe-wallet-test-mode.md). It keeps wallet and legacy subscription webhook secrets separate and verifies webhook-authoritative crediting, duplicate delivery, and refunds against a Stripe sandbox.
 
 Optional local email testing is available through a Docker Compose profile:
 
@@ -121,7 +123,7 @@ pnpm lint
 pnpm check-types
 pnpm test
 pnpm ci:local
-pnpm audit:deps -- --audit-level high
+pnpm audit:deps -- --audit-level low
 ```
 
 ## Why QuickVoice
@@ -221,15 +223,15 @@ cd apps/ai
 - Billing: Stripe
 - Monorepo: pnpm and Turborepo
 
-## Open Source And Commercial Use
+## Open Source And Permissive Use
 
-QuickVoice is licensed under the [GNU Affero General Public License v3.0](./LICENSE).
+QuickVoice is licensed under the permissive [MIT License](./LICENSE).
 
-You can use, study, modify, and distribute the code under the AGPL. If you modify QuickVoice and make it available to users over a network, the AGPL requires you to make the corresponding source code available under the same license.
+You may use, copy, modify, merge, publish, distribute, sublicense, and sell copies of QuickVoice, including in proprietary and commercial products. Copies or substantial portions must retain the copyright and permission notice from the license.
 
-For teams that need a commercial license, managed hosting, implementation support, or enterprise terms, contact QuickVoice through [quickvoice.co](https://quickvoice.co).
+For managed hosting, implementation support, or enterprise services, contact QuickVoice through [quickvoice.co](https://quickvoice.co).
 
-This section is not legal advice. Review the AGPL and consult counsel for your specific use case.
+This section is not legal advice. Review the MIT License and consult counsel for your specific use case.
 
 ## Support The Project
 
@@ -251,4 +253,4 @@ QuickVoice is built in public for teams that want programmable, inspectable phon
 
 ## License
 
-AGPL-3.0-only. See [LICENSE](./LICENSE).
+MIT. See [LICENSE](./LICENSE).
